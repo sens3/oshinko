@@ -1,5 +1,5 @@
 
-Kraut.given(/I tap the left navigation bar button/, function(target, app) {
+Kraut.given(/I tap the left navigation bar button/, function(target, app, captures) {
     
     var window = app.mainWindow();
     var navBar = window.navigationBar();
@@ -7,7 +7,7 @@ Kraut.given(/I tap the left navigation bar button/, function(target, app) {
     
 });
 
-Kraut.given(/I tap the right navigation bar button/, function(target, app) {
+Kraut.given(/I tap the right navigation bar button/, function(target, app, captures) {
     
     var window = app.mainWindow();
     var navBar = window.navigationBar();
@@ -15,10 +15,11 @@ Kraut.given(/I tap the right navigation bar button/, function(target, app) {
     
 });
 
-Kraut.then(/I should see a navigation bar with title "([^\"]*)"/, function(target, app, title) {
+Kraut.then(/I should see a navigation bar with title "([^\"]*)"/, function(target, app, captures) {
     
     var window = app.mainWindow();
     var navBar = window.navigationBar();
+    var title = captures[0];
     assertEquals(title, navBar.name());
     
 });

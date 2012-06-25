@@ -3,8 +3,12 @@
 
 // set up Kraut 'namespace'
 Kraut = {};
+Kraut.target      = UIATarget.localTarget();
+Kraut.application = Kraut.target.frontMostApp();
+
 
 // load lib
+#import "lib/bash_commands.js"
 #import "lib/runner.js"
 #import "lib/step_definition_methods.js"
 
