@@ -1,0 +1,3 @@
+[submodule "vendor/tuneup"]
+	path = vendor/tuneup
+	url = git://github.com/alexvollmer/tuneup_js.git

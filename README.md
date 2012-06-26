@@ -33,12 +33,12 @@ You can use git submodules to add Kraut to your project
 
 	git submodule add git://github.com/apporchard/kraut.git
   
-You'll also need to install [tuneup_js](https://github.com/alexvollmer/tuneup_js). 
+Kraut itself uses git submodules for it's one dependency: [tuneup_js](https://github.com/alexvollmer/tuneup_js).
+Thus, make sure to install the submodules run the following
+	
+	git submodule update --recursive
+	 
 Kraut ships with a bunch of default step definitions, like the one above. And tuneup's assertion methods are used to implement them.
-
-Again, you can use git submodules to add tuneup to your project
-
-    git submodule add git://github.com/alexvollmer/tuneup_js.git tuneup
 
 Kraut expects a certain directory structure:
 

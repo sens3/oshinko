@@ -1,5 +1,5 @@
 // load dependencies
-#import "../tuneup/tuneup.js"
+#import "vendor/tuneup/tuneup.js"
 
 // set up Kraut 'namespace'
 Kraut = {};
