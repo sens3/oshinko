@@ -13,15 +13,15 @@ For example:
 
 Step Definitions are defined in Javascript:
 
-	Kraut.given(/I am on the "([^\"]*)" tab/, function(target, app, tabName) {
-    	var window = app.mainWindow();
+	Kraut.given(/I am on the "([^\"]*)" tab/, function(window, tabName) {
+
     	var tabBar = window.tabBar();
     	tabBar.buttons().firstWithName(tabName).tap();
+        
 	});
 	
-	Kraut.then(/I should see a navigation bar with title "([^\"]*)"/, function(target, app, captures) {
+	Kraut.then(/I should see a navigation bar with title "([^\"]*)"/, function(window, captures) {
     
-    	var window = app.mainWindow();
     	var navBar = window.navigationBar();
     	var title = captures[0];
     	assertEquals(title, navBar.name());
