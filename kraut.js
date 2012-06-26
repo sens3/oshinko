@@ -13,5 +13,7 @@ Kraut.application = Kraut.target.frontMostApp();
 #import "lib/step_definition_methods.js"
 
 // load default step definitions
-#import "step_definitions/navigation_bar.js"
+#import "step_definitions/app.js"
 #import "step_definitions/tab_bar.js"
+#import "step_definitions/table_view.js"
+#import "step_definitions/navigation_bar.js"
