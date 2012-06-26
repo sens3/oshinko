@@ -70,4 +70,10 @@ If you run your main script using the `instruments` CLI `featuredDirectory` can 
 If you run it directly from within Instruments `featuresDirectory` needs to be absolute.
 
 
+## Notes ##
+Not all of Gherkin is yet implemented. What you can do is the basic Given/When/Then/And.
+
+Kraut can not reset your app after each scenario. Thus, all steps, throughout all features and scenarios are run sequentially.
+
+
 
