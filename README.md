@@ -51,7 +51,6 @@ Kraut expects a certain directory structure:
 		- /js
 			- /kraut
 			- /step_definitions # your step definitions, if you have any
-			- /tuneup
 			- main.js # or whatever your main file is that will be executed by UIAutomation
 		- /features
 			- foo.feature
