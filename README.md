@@ -34,7 +34,7 @@ Step Definitions are defined in Javascript:
 
 You can use git submodules to add Kraut to your project
 
-	git submodule add git://github.com/apporchard/kraut.git
+	git submodule add git://github.com/sens3/kraut.git
   
 Kraut itself uses git submodules for it's one dependency: [tuneup_js](https://github.com/alexvollmer/tuneup_js).
 Thus, make sure to install the submodules by running:
