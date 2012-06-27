@@ -20,3 +20,11 @@ Kraut.then(/I should see a navigation bar with title "([^\"]*)"/, function(windo
     assertEquals(title, navBar.name());
     
 });
+
+Kraut.then(/I should see a left navigation bar button with title "([^\"]*)"/, function(window, captures) {
+    
+    var navBar = window.navigationBar();
+    var title = captures[0];
+    assertEquals(title, navBar.leftButton().name());
+    
+});
