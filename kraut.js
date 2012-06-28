@@ -3,7 +3,7 @@
 
 
 // load lib
-#import "lib/kraut/kraut.js"
+#import "lib/kraut.js"
 #import "lib/bash_commands.js"
 #import "lib/runner.js"
 #import "lib/step_definition_methods.js"
