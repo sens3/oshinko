@@ -39,7 +39,7 @@ You *should* use git submodules to add Kraut to your project
 Kraut itself uses git submodules for it's one dependency: [tuneup_js](https://github.com/alexvollmer/tuneup_js).
 Thus, make sure to install the submodules by running:
 	
-	git submodule update --recursive
+	git submodule update --init --recursive
 	 
 Kraut ships with a bunch of default step definitions, like the one above. And tuneup's assertion methods are used to implement them.
 
