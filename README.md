@@ -32,7 +32,7 @@ Step Definitions are defined in Javascript:
 ## Install ##
 
 
-You can use git submodules to add Kraut to your project
+You *should* use git submodules to add Kraut to your project
 
 	git submodule add git://github.com/sens3/kraut.git
   
@@ -64,20 +64,36 @@ Your main script *might* look like this:
 	// Load your step definitions (if you have any)
 	#import "step_definitions/mine.js"
 
-	// set the path to your features directory
-	var featureDirectory = "/path/to/your/app/features/";
+	// init Kraut with the path to your features directory
+	Kraut.init( {
+		featureDir: "/path/to/your/app/features/",
+	});
+	
+	Kraut.run(); 
+	
+`Kraut.init` takes the following options
 
-	Kraut.runFeaturesInDir ( featureDirectory ); 
+#####featureDir (required)
+The directory with your *.feature files. 
 
-If you run your main script using the `instruments` CLI `featuredDirectory` can be relative to the directory you run it from.  
+*Note:* If you run your main script using the `instruments` CLI `featureDir` can be relative to the directory you run it from.  
 
-If you run it directly from within Instruments `featuresDirectory` needs to be absolute.
+The Instruments app sets your working directory to "/" so `featureDir` needs to be absolute.
+
+#####disableColors
+
+Default: false
+
+Disables color output.
+
 
 
 ## Notes ##
-Not all of Gherkin is yet implemented. What you can do is the basic Given/When/Then/And.
+Not all of Gherkin is yet implemented. What you *can* do is the basic Given/When/Then/And.
 
 Kraut can not reset your app after each scenario. Thus, all steps, throughout all features and scenarios are run sequentially.
+
+Kraut does not *magically* fix UIAutomation. Yet.
 
 
 

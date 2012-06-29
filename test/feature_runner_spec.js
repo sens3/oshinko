@@ -51,7 +51,8 @@ describe( "Kraut - Feature Runner", function () {
 		spyOn( Kraut.bash, "cat").andReturn(feature);
 		spyOn( Kraut, "parseAndRunFeature" );
 		
-		Kraut.runFeaturesInDir("features");
+		Kraut.init( { featureDir: "features"} );
+		Kraut.run();
 
 		expect( Kraut.bash.ls ).toHaveBeenCalledWith( "features" );
 
