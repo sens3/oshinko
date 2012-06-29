@@ -1,4 +1,4 @@
-describe( "Kraut Bash Commands", function() {
+describe( "Kraut - Bash Commands", function() {
 
 	describe( "ls", function() {
 		
