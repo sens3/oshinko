@@ -1,9 +1,13 @@
 
 Kraut.then( /I should see a (switch|text field|slider|button|table view) labeled "([^\"]+)"/ , function ( window, captures ) {
     
-    var elements = undefined;
+    Kraut.target.delay(1);
+    
+    var elements = undefined,
+    	elementType = captures[0],
+    	elementName = captures[1];
 
-    switch( captures[0] ){
+    switch( elementType ){
     	case 'switch':
     		elements = window.switches();
     		break;
@@ -21,18 +25,20 @@ Kraut.then( /I should see a (switch|text field|slider|button|table view) labeled
     		break;	
     }
 
-    var element = elements.firstWithName( captures[1] );
-           
-    assertNotNull( element );
-           
-    assertTrue( element.isVisible() );       
+    var element = elements.firstWithName( elementName );
+    
+    assertNotNull( element, "Could not find " + elementType + " named " + elementName );
+     
+    assertTrue( element.isVisible(), elementType + " " + elementName + " should be visible" );       
 });
 
 Kraut.when( /I tap the "([^\"]+)" (switch|text field|slider|button|table view)/ , function (window, captures) {
 
     Kraut.target.delay(1);
     
-    var elements = undefined;
+    var elements = undefined,
+        elementName = captures[0],
+        elementType = captures[1];
 
     switch( captures[1] ){
     	case 'switch':
@@ -54,7 +60,7 @@ Kraut.when( /I tap the "([^\"]+)" (switch|text field|slider|button|table view)/ 
 
     var element = elements.firstWithName( captures[0] )
 
-    assertNotNull( element );
+    assertNotNull( element, "Could not find " + elementType + " named " + elementName );
 
     element.vtap();
     
