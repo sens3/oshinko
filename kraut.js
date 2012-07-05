@@ -10,6 +10,13 @@
 
 // load default step definitions
 #import "step_definitions/app.js"
+#import "step_definitions/common.js"
+#import "step_definitions/keyboard.js"
+#import "step_definitions/navigation_bar.js"
+#import "step_definitions/segmented_control.js"
+#import "step_definitions/slider.js"
 #import "step_definitions/tab_bar.js"
 #import "step_definitions/table_view.js"
-#import "step_definitions/navigation_bar.js"
+#import "step_definitions/text_field.js"
+
+
