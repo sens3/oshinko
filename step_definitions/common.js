@@ -1,7 +1,7 @@
 
-Kraut.then( /I should see a (switch|text field|slider|button|table view) labeled "([^\"]+)"/ , function ( window, captures ) {
+Oshinko.then( /I should see a (switch|text field|slider|button|table view) labeled "([^\"]+)"/ , function ( window, captures ) {
     
-    Kraut.target.delay(1);
+    Oshinko.target.delay(1);
     
     var elements = undefined,
     	elementType = captures[0],
@@ -32,9 +32,9 @@ Kraut.then( /I should see a (switch|text field|slider|button|table view) labeled
     assertTrue( element.isVisible(), elementType + " " + elementName + " should be visible" );       
 });
 
-Kraut.when( /I tap the "([^\"]+)" (switch|text field|slider|button|table view)/ , function (window, captures) {
+Oshinko.when( /I tap the "([^\"]+)" (switch|text field|slider|button|table view)/ , function (window, captures) {
 
-    Kraut.target.delay(1);
+    Oshinko.target.delay(1);
     
     var elements = undefined,
         elementName = captures[0],

@@ -1,5 +1,5 @@
 
-Kraut.when(/I tap the (\d+)(?:st|nd|rd|th) table view cell/, function(window, captures) {
+Oshinko.when(/I tap the (\d+)(?:st|nd|rd|th) table view cell/, function(window, captures) {
 
     var tableView = window.tableViews()[0];
     var index = captures[0] - 1;
@@ -9,7 +9,7 @@ Kraut.when(/I tap the (\d+)(?:st|nd|rd|th) table view cell/, function(window, ca
     
 });
  
-Kraut.when(/I tap the table view cell with title "([^\"]+)"/, function(window, captures) {
+Oshinko.when(/I tap the table view cell with title "([^\"]+)"/, function(window, captures) {
 
     var tableView = window.tableViews()[0];
     var title = captures[0];
@@ -20,7 +20,7 @@ Kraut.when(/I tap the table view cell with title "([^\"]+)"/, function(window, c
 });
 
 
-Kraut.then(/I should see a table view with (\d+) cells/, function(window, captures) {
+Oshinko.then(/I should see a table view with (\d+) cells/, function(window, captures) {
 
     var tableView = window.tableViews()[0];
     var cells = tableView.cells();
@@ -30,7 +30,7 @@ Kraut.then(/I should see a table view with (\d+) cells/, function(window, captur
     
 });
 
-Kraut.then(/I should see a table view with (\d+) visible cells/, function(window, captures) {
+Oshinko.then(/I should see a table view with (\d+) visible cells/, function(window, captures) {
 
     var tableView = window.tableViews()[0];
     var cells = tableView.visibleCells();
@@ -40,7 +40,7 @@ Kraut.then(/I should see a table view with (\d+) visible cells/, function(window
     
 });
 
-Kraut.then(/I should see a table view with (\d+) groups?/, function(window, captures) {
+Oshinko.then(/I should see a table view with (\d+) groups?/, function(window, captures) {
 
     var tableView = window.tableViews()[0];
     var groups = tableView.groups();

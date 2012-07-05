@@ -1,8 +1,8 @@
-describe( "Kraut - Step Definition Methods", function() {
+describe( "Oshinko - Step Definition Methods", function() {
 
 	it( "should hold an array of step definitions", function() {
 
-		expect(Kraut.stepDefinitions).toEqual([]);
+		expect(Oshinko.stepDefinitions).toEqual([]);
 		
 	});
 	
@@ -10,11 +10,11 @@ describe( "Kraut - Step Definition Methods", function() {
 
 		var callback = function() { return 42; };
 		
-		Kraut.addStepDefinition( /I am testing/, callback);
+		Oshinko.addStepDefinition( /I am testing/, callback);
 
-		expect(Kraut.stepDefinitions.length).toEqual(1);
+		expect(Oshinko.stepDefinitions.length).toEqual(1);
 
-		var stepDef = Kraut.stepDefinitions[0];
+		var stepDef = Oshinko.stepDefinitions[0];
 		expect(stepDef).toEqual({
 			regex: /I am testing/,
 			callback: callback
@@ -23,9 +23,9 @@ describe( "Kraut - Step Definition Methods", function() {
 
 	it( "should setup aliases for given/when/then", function() {
 
-		expect(Kraut.given).toEqual(Kraut.addStepDefinition);
-		expect(Kraut.when).toEqual(Kraut.addStepDefinition);
-		expect(Kraut.then).toEqual(Kraut.addStepDefinition);
+		expect(Oshinko.given).toEqual(Oshinko.addStepDefinition);
+		expect(Oshinko.when).toEqual(Oshinko.addStepDefinition);
+		expect(Oshinko.then).toEqual(Oshinko.addStepDefinition);
 
 	});
 

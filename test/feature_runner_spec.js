@@ -1,4 +1,4 @@
-describe( "Kraut - Feature Runner", function () {
+describe( "Oshinko - Feature Runner", function () {
 
 	var feature = "";
 	feature += "Feature:\n";
@@ -47,35 +47,35 @@ describe( "Kraut - Feature Runner", function () {
 	});
 
 	it( "should run each feature in the given directory", function() {
-		spyOn( Kraut.bash, "ls").andReturn(["first.feature", "second.feature"]);
-		spyOn( Kraut.bash, "cat").andReturn(feature);
-		spyOn( Kraut, "parseAndRunFeature" );
+		spyOn( Oshinko.bash, "ls").andReturn(["first.feature", "second.feature"]);
+		spyOn( Oshinko.bash, "cat").andReturn(feature);
+		spyOn( Oshinko, "parseAndRunFeature" );
 		
-		Kraut.init( { featureDir: "features"} );
-		Kraut.run();
+		Oshinko.init( { featureDir: "features"} );
+		Oshinko.run();
 
-		expect( Kraut.bash.ls ).toHaveBeenCalledWith( "features" );
+		expect( Oshinko.bash.ls ).toHaveBeenCalledWith( "features" );
 
-		expect( Kraut.bash.cat ).toHaveBeenCalledWith( "features/first.feature" );
-		expect( Kraut.bash.cat ).toHaveBeenCalledWith( "features/second.feature" );
+		expect( Oshinko.bash.cat ).toHaveBeenCalledWith( "features/first.feature" );
+		expect( Oshinko.bash.cat ).toHaveBeenCalledWith( "features/second.feature" );
 
-		expect( Kraut.parseAndRunFeature ).toHaveBeenCalledWith(feature);
+		expect( Oshinko.parseAndRunFeature ).toHaveBeenCalledWith(feature);
 	});
 
 	describe( "running the test feature", function() {
 
 		beforeEach(function() {
-			Kraut.stepDefinitions = [];
-			Kraut.given( /I write good code/, function(w, c) {} );
-			Kraut.when( /I go to the "([^\"]+)"/, function(w, c) {} );
-			Kraut.then( /I should only see green/, function(w, c) { throw "kazoom"; } );
-			expect( Kraut.stepDefinitions.length ).toEqual(3);
+			Oshinko.stepDefinitions = [];
+			Oshinko.given( /I write good code/, function(w, c) {} );
+			Oshinko.when( /I go to the "([^\"]+)"/, function(w, c) {} );
+			Oshinko.then( /I should only see green/, function(w, c) { throw "kazoom"; } );
+			expect( Oshinko.stepDefinitions.length ).toEqual(3);
 			
-			spyOn(Kraut.stepDefinitions[0], "callback").andCallThrough();
-			spyOn(Kraut.stepDefinitions[1], "callback").andCallThrough();
-			spyOn(Kraut.stepDefinitions[2], "callback").andCallThrough();
+			spyOn(Oshinko.stepDefinitions[0], "callback").andCallThrough();
+			spyOn(Oshinko.stepDefinitions[1], "callback").andCallThrough();
+			spyOn(Oshinko.stepDefinitions[2], "callback").andCallThrough();
 
-			Kraut.parseAndRunFeature( feature );
+			Oshinko.parseAndRunFeature( feature );
 		});
 
 		it( "should start a new feature", function() {
@@ -88,22 +88,22 @@ describe( "Kraut - Feature Runner", function () {
 		});
 
 		it( "should log a pass message for the passing steps", function() {
-			expect( UIALogger.logPass ).toHaveBeenCalledWith( Kraut.colorGreen + "I write good code" + Kraut.colorReset );
-			expect( UIALogger.logPass ).toHaveBeenCalledWith( Kraut.colorGreen + "I go to the \"spec runner page\"" + Kraut.colorReset );
+			expect( UIALogger.logPass ).toHaveBeenCalledWith( Oshinko.colorGreen + "I write good code" + Oshinko.colorReset );
+			expect( UIALogger.logPass ).toHaveBeenCalledWith( Oshinko.colorGreen + "I go to the \"spec runner page\"" + Oshinko.colorReset );
 		});
 
 		it( "should log a fail message for each missing or failing step", function() {
 			var message = 'Missing step definition for "I should get high fives"';
-			expect( UIALogger.logFail ).toHaveBeenCalledWith( Kraut.colorRed + message + Kraut.colorReset );
+			expect( UIALogger.logFail ).toHaveBeenCalledWith( Oshinko.colorRed + message + Oshinko.colorReset );
 
 			var message = "I should only see green";
-			expect( UIALogger.logFail ).toHaveBeenCalledWith( Kraut.colorRed + message + Kraut.colorReset );
+			expect( UIALogger.logFail ).toHaveBeenCalledWith( Oshinko.colorRed + message + Oshinko.colorReset );
 		});
 
 		it( "should execute the callbacks passing the main window and captures", function() {
-			expect( Kraut.stepDefinitions[0].callback ).toHaveBeenCalledWith( Kraut.application.mainWindow(), [] );	
-			expect( Kraut.stepDefinitions[1].callback ).toHaveBeenCalledWith( Kraut.application.mainWindow(), ["spec runner page"] );				
-			expect( Kraut.stepDefinitions[2].callback ).toHaveBeenCalledWith( Kraut.application.mainWindow(), [] );				
+			expect( Oshinko.stepDefinitions[0].callback ).toHaveBeenCalledWith( Oshinko.application.mainWindow(), [] );	
+			expect( Oshinko.stepDefinitions[1].callback ).toHaveBeenCalledWith( Oshinko.application.mainWindow(), ["spec runner page"] );				
+			expect( Oshinko.stepDefinitions[2].callback ).toHaveBeenCalledWith( Oshinko.application.mainWindow(), [] );				
 		})
 	});
 

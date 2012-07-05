@@ -1,6 +1,6 @@
-Kraut.when( /I empty the text field "([^\"]+)"/ , function (window, captures) {
+Oshinko.when( /I empty the text field "([^\"]+)"/ , function (window, captures) {
     
-    Kraut.target.delay(1);
+    Oshinko.target.delay(1);
     
     var field = window.textFields().firstWithName( captures[0] );
 
