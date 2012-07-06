@@ -51,8 +51,7 @@ describe( "Oshinko - Feature Runner", function () {
 		spyOn( Oshinko.bash, "cat").andReturn(feature);
 		spyOn( Oshinko, "parseAndRunFeature" );
 		
-		Oshinko.init( { featureDir: "features"} );
-		Oshinko.runAll();
+		Oshinko.runAll( "features" );
 
 		expect( Oshinko.bash.ls ).toHaveBeenCalledWith( "features" );
 

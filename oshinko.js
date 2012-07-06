@@ -1,9 +1,8 @@
 // load dependencies
 #import "vendor/tuneup/tuneup.js"
 
-
 // load lib
-#import "lib/oshinko.js"
+#import "lib/oshinko_base.js"
 #import "lib/bash_commands.js"
 #import "lib/feature_runner.js"
 #import "lib/step_definition_methods.js"
@@ -18,5 +17,3 @@
 #import "step_definitions/tab_bar.js"
 #import "step_definitions/table_view.js"
 #import "step_definitions/text_field.js"
-
-

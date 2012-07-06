@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+
+# forked from https://github.com/jonathanpenn/AutomationExample
+
+# parse out project name from xcodebuild -list output
+APP_NAME=$(xcodebuild -list | grep -E "project \".+\":" | sed 's/\Information about project "\([^\"]*\)\":/\1/')
+
+# we assume your UIAutomation tests are in MyApp/UIAutomationTests
+TEST_DIR=$APP_NAME/UIAutomationTests
+OSHINKO_DIR=$TEST_DIR/js/oshinko
+
+# define and setup build directory
+BUILD_DIR=/tmp/$APP_NAME
+mkdir -p $BUILD_DIR
+
+# we will store the instruments output in automation_results/
+rm -rf automation_results
+mkdir -p automation_results
+
+# create .oshinko directory
+mkdir -p .oshinko
+
+# build the project
+xcodebuild -sdk iphonesimulator -configuration Debug build CONFIGURATION_BUILD_DIR=$BUILD_DIR
+
+# init return code
+return_code=0
+# run instruments with oshinko for every *.feature file
+for feature in $TEST_DIR/features/*.feature
+do
+	
+	# 'store' current feature file in .oshinko
+	#  makes passing it to JS easy
+	if [ -f .feature ]; then
+    rm .feature
+  fi
+  echo -n $feature > .oshinko/feature
+  
+  ./$OSHINKO_DIR/bin/unix_instruments \
+    -D automation_results/trace \
+    -t $OSHINKO_DIR/bin/UIAutomationTemplate.tracetemplate \
+    $BUILD_DIR/$APP_NAME.app \
+    -e UIARESULTSPATH automation_results \
+    -e UIASCRIPT $TEST_DIR/js/main.js \
+
+  if [[ $? == 0 ]]; then
+    echo "$feature passed!"
+  else
+    echo "$feature failed!"
+  fi
+  
+  # return_code=$return_code && $?
+  
+done
+
+# exit($return_code)
