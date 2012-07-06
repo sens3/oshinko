@@ -47,10 +47,9 @@ do
     echo "$feature passed!"
   else
     echo "$feature failed!"
+    return_code=1
   fi
-  
-  # return_code=$return_code && $?
   
 done
 
-# exit($return_code)
+exit $return_code

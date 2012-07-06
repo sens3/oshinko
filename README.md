@@ -31,7 +31,6 @@ Step Definitions are defined in Javascript:
 
 ## Install ##
 
-
 You *should* use git submodules to add Oshinko to your project
 
 	git submodule add git://github.com/sens3/oshinko.git MyApp/UIAutomationTests/js/oshinko
