@@ -46,13 +46,13 @@ describe( "Oshinko - Feature Runner", function () {
 		});
 	});
 
-	it( "should run each feature in the given directory", function() {
+	it( "should run all features in the given directory", function() {
 		spyOn( Oshinko.bash, "ls").andReturn(["first.feature", "second.feature"]);
 		spyOn( Oshinko.bash, "cat").andReturn(feature);
 		spyOn( Oshinko, "parseAndRunFeature" );
 		
 		Oshinko.init( { featureDir: "features"} );
-		Oshinko.run();
+		Oshinko.runAll();
 
 		expect( Oshinko.bash.ls ).toHaveBeenCalledWith( "features" );
 
@@ -61,6 +61,18 @@ describe( "Oshinko - Feature Runner", function () {
 
 		expect( Oshinko.parseAndRunFeature ).toHaveBeenCalledWith(feature);
 	});
+	
+	it( "should run a given feature", function() {
+		spyOn( Oshinko.bash, "cat").andReturn(feature);
+		spyOn( Oshinko, "parseAndRunFeature" );
+		
+		Oshinko.run("features/first.feature");
+
+		expect( Oshinko.bash.cat ).toHaveBeenCalledWith( "features/first.feature" );
+
+		expect( Oshinko.parseAndRunFeature ).toHaveBeenCalledWith(feature);
+	});
+  
 
 	describe( "running the test feature", function() {
 
