@@ -51,7 +51,7 @@ run_instruments() {
 
   # Cat the instruments output to tee which outputs to stdout and saves to
   # $output at the same time
-  cat < /dev/ptyvf | tee $output
+  printOutputOrWriteTree < /dev/ptyvf | tee $output
 
   # Clear the process id we saved when forking instruments so the cleanup
   # function called on exit knows it doesn't have to kill anything
@@ -60,6 +60,10 @@ run_instruments() {
   # Process the instruments output looking for anything that resembles a fail
   # message
   cat $output | get_error_status
+}
+
+printOutputOrWriteTree() {
+  ruby -e 'in_tree = false; f = File.open(".oshinko/tree", "w"); STDIN.each_line { |line| in_tree = in_tree || (line =~ /Oshinko.startTree/); in_tree ? f.write(line) : print(line); in_tree = in_tree && !(line =~ /Oshinko.endTree/); f.flush; }; f.close;'
 }
 
 get_error_status() {

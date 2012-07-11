@@ -2,7 +2,7 @@ Oshinko.when( /I empty the text field "([^\"]+)"/ , function (window, captures) 
     
     Oshinko.target.delay(1);
     
-    var field = window.textFields().firstWithName( captures[0] );
+    var field = Oshinko.findElement("UIATextField", captures[0]);
 
     field.setValue("");
     

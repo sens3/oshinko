@@ -1,67 +1,56 @@
 
-Oshinko.then( /I should see a (switch|text field|slider|button|table view) labeled "([^\"]+)"/ , function ( window, captures ) {
+Oshinko.then( /I should see the "([^\"]+)" (switch|text field|slider|button|table view|label)/ , function ( window, captures ) {
     
-    Oshinko.target.delay(1);
+    var elementName = captures[0],
+    	  elementType = captures[1],
+    	  elementTypeUIA = Oshinko._getUIAType(elementType),
+        element = Oshinko.findElement(elementTypeUIA, elementName);
     
-    var elements = undefined,
-    	elementType = captures[0],
-    	elementName = captures[1];
-
-    switch( elementType ){
-    	case 'switch':
-    		elements = window.switches();
-    		break;
-    	case 'text field':
-    		elements = window.textFields();
-    		break;	
-    	case 'slider':
-    		elements = window.sliders();
-    		break;	
-    	case 'button':
-    		elements = window.buttons();
-    		break;	
-    	case 'table view':
-    		elements = window.tableViews();
-    		break;	
-    }
-
-    var element = elements.firstWithName( elementName );
-    
-    assertNotNull( element, "Could not find " + elementType + " named " + elementName );
+    assertNotNull( element, "Could not find " + elementType + " (" + elementTypeUIA + ") named " + elementName );
      
     assertTrue( element.isVisible(), elementType + " " + elementName + " should be visible" );       
 });
 
-Oshinko.when( /I tap the "([^\"]+)" (switch|text field|slider|button|table view)/ , function (window, captures) {
+Oshinko.when( /I tap the "([^\"]+)" (switch|text field|slider|button|table view|label)/ , function (window, captures) {
 
     Oshinko.target.delay(1);
     
-    var elements = undefined,
-        elementName = captures[0],
-        elementType = captures[1];
+    var elementName = captures[0],
+        elementType = captures[1],
+        elementTypeUIA = Oshinko._getUIAType(elementType),
+        element = Oshinko.findElement(elementTypeUIA, elementName);
 
-    switch( captures[1] ){
-    	case 'switch':
-    		elements = window.switches();
-    		break;
-    	case 'text field':
-    		elements = window.textFields();
-    		break;	
-    	case 'slider':
-    		elements = window.sliders();
-    		break;	
-    	case 'button':
-    		elements = window.buttons();
-    		break;	
-    	case 'table view':
-    		elements = window.tableViews();
-    		break;	
-    }
-
-    var element = elements.firstWithName( captures[0] )
-
-    assertNotNull( element, "Could not find " + elementType + " named " + elementName );
+    assertNotNull( element, "Could not find " + elementType + " (" + elementTypeUIA + ") named " + elementName );
 
     element.vtap();
     
 } );
+
+
+Oshinko._getUIAType = function ( elementType ){
+  var elementTypeUIA;
+  
+  switch( elementType ){
+  	case 'switch':
+  		elementTypeUIA = "UIASwitch";
+  		break;
+  	case 'label':
+  		elementTypeUIA = "UIAStaticText";
+  		break;
+  	case 'text field':
+  		elementTypeUIA = "UIATextField"
+  		break;	
+  	case 'slider':
+  		elementTypeUIA = "UIASlider";
+  		break;	
+  	case 'button':
+  		elementTypeUIA = "UIAButton";
+  		break;	
+  	case 'table view':
+  		elementTypeUIA = "UIATableView";
+  		break;	
+  }
+  
+  return elementTypeUIA;
+  
+}

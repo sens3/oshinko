@@ -1,9 +1,13 @@
+// load Oshinko base
+#import "lib/oshinko_base.js"
+
 // load dependencies
 #import "vendor/tuneup/tuneup.js"
+#import "vendor/arboreal/lib/arboreal.js"
 
 // load lib
-#import "lib/oshinko_base.js"
 #import "lib/bash_commands.js"
+#import "lib/element_finder.js"
 #import "lib/feature_runner.js"
 #import "lib/step_definition_methods.js"
 
