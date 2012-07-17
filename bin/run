@@ -21,6 +21,7 @@ mkdir -p automation_results
 mkdir -p .oshinko
 
 # build the project
+export UITEST=1
 xcodebuild -sdk iphonesimulator -configuration Debug build CONFIGURATION_BUILD_DIR=$BUILD_DIR
 
 # init return code
