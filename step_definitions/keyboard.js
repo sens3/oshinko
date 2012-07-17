@@ -1,4 +1,4 @@
-Oshinko.when( /I type "([^\"]+)"/ , function (window, captures) {
+Oshinko.when( /^I type "([^\"]+)"$/ , function (window, captures) {
 
     var keyboard = UIATarget.localTarget().frontMostApp().keyboard();
 

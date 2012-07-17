@@ -1,5 +1,5 @@
 
-Oshinko.then( /I should see the "([^\"]+)" (switch|text field|slider|button|table view|label)/ , function ( window, captures ) {
+Oshinko.then( /^I should see the "([^\"]+)" (switch|text field|slider|button|table view|label)$/ , function ( window, captures ) {
     
     var elementName = captures[0],
         elementType = captures[1],
@@ -13,7 +13,7 @@ Oshinko.then( /I should see the "([^\"]+)" (switch|text field|slider|button|tabl
     assertTrue( element.isVisible(), elementType + " " + elementName + " should be visible" );       
 });
 
-Oshinko.when( /I tap the "([^\"]+)" (switch|text field|slider|button|table view|label)/ , function (window, captures) {
+Oshinko.when( /^I tap the "([^\"]+)" (switch|text field|slider|button|table view|label)$/ , function (window, captures) {
 
     Oshinko.target.delay(1);
     

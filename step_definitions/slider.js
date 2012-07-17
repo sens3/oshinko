@@ -1,4 +1,4 @@
-Oshinko.when( /I drag the "([^\"]+)" slider to (\d+) of (\d+)/, function( window, captures ) {
+Oshinko.when( /^I drag the "([^\"]+)" slider to (\d+) of (\d+)$/, function( window, captures ) {
     
     var slider = UIQuery.firstKindWithName("sliders", captures[0]); // window.sliders().firstWithName( captures[0] );
     var value = captures[1];

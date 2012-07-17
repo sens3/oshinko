@@ -1,4 +1,4 @@
-Oshinko.when( /I empty the text field "([^\"]+)"/ , function (window, captures) {
+Oshinko.when( /^I empty the text field "([^\"]+)"$/ , function (window, captures) {
     
     Oshinko.target.delay(1);
     

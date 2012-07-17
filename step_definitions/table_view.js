@@ -1,5 +1,5 @@
 
-Oshinko.when(/I tap the (\d+)(?:st|nd|rd|th) table view cell/, function(window, captures) {
+Oshinko.when(/^I tap the (\d+)(?:st|nd|rd|th) table view cell$/, function(window, captures) {
 
     Oshinko._assertOneTableView( window );
 
@@ -11,7 +11,7 @@ Oshinko.when(/I tap the (\d+)(?:st|nd|rd|th) table view cell/, function(window, 
     
 });
  
-Oshinko.when(/I tap the table view cell with title "([^\"]+)"/, function(window, captures) {
+Oshinko.when(/^I tap the table view cell with title "([^\"]+)"$/, function(window, captures) {
 
     Oshinko._assertOneTableView( window );
 
@@ -24,7 +24,7 @@ Oshinko.when(/I tap the table view cell with title "([^\"]+)"/, function(window,
 });
 
 
-Oshinko.then(/I should see a table view with (\d+) cells/, function(window, captures) {
+Oshinko.then(/^I should see a table view with (\d+) cells$/, function(window, captures) {
 
     Oshinko._assertOneTableView( window );
     
@@ -36,7 +36,7 @@ Oshinko.then(/I should see a table view with (\d+) cells/, function(window, capt
     
 });
 
-Oshinko.then(/I should see a table view with (\d+) visible cells/, function(window, captures) {
+Oshinko.then(/^I should see a table view with (\d+) visible cells$/, function(window, captures) {
     
     Oshinko._assertOneTableView( window );
     
@@ -48,7 +48,7 @@ Oshinko.then(/I should see a table view with (\d+) visible cells/, function(wind
     
 });
 
-Oshinko.then(/I should see a table view with (\d+) groups?/, function(window, captures) {
+Oshinko.then(/^I should see a table view with (\d+) groups?$/, function(window, captures) {
     
     Oshinko._assertOneTableView( window );
     
