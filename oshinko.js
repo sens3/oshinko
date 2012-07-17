@@ -3,11 +3,10 @@
 
 // load dependencies
 #import "vendor/tuneup/tuneup.js"
-#import "vendor/arboreal/lib/arboreal.js"
+#import "vendor/uiquery/uiquery.js"
 
 // load lib
 #import "lib/bash_commands.js"
-#import "lib/element_finder.js"
 #import "lib/feature_runner.js"
 #import "lib/step_definition_methods.js"
 

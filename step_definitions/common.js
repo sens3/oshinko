@@ -2,9 +2,9 @@
 Oshinko.then( /I should see the "([^\"]+)" (switch|text field|slider|button|table view|label)/ , function ( window, captures ) {
     
     var elementName = captures[0],
-    	  elementType = captures[1],
-    	  elementTypeUIA = Oshinko._getUIAType(elementType),
-        element = Oshinko.findElement(elementTypeUIA, elementName);
+        elementType = captures[1],
+        elementTypeUIA = Oshinko._getUIAType( elementType ),
+        element = UIQuery.firstKindWithName(elementTypeUIA, elementName);
     
     assertNotNull( element, "Could not find " + elementType + " (" + elementTypeUIA + ") named " + elementName );
      
@@ -18,7 +18,7 @@ Oshinko.when( /I tap the "([^\"]+)" (switch|text field|slider|button|table view|
     var elementName = captures[0],
         elementType = captures[1],
         elementTypeUIA = Oshinko._getUIAType(elementType),
-        element = Oshinko.findElement(elementTypeUIA, elementName);
+        element = UIQuery.firstKindWithName(elementTypeUIA, elementName);
 
     assertNotNull( element, "Could not find " + elementType + " (" + elementTypeUIA + ") named " + elementName );
 
@@ -32,22 +32,22 @@ Oshinko._getUIAType = function ( elementType ){
   
   switch( elementType ){
   	case 'switch':
-  		elementTypeUIA = "UIASwitch";
+  		elementTypeUIA = "switches";
   		break;
   	case 'label':
-  		elementTypeUIA = "UIAStaticText";
+  		elementTypeUIA = "staticTexts";
   		break;
   	case 'text field':
-  		elementTypeUIA = "UIATextField"
+  		elementTypeUIA = "textFields"
   		break;	
   	case 'slider':
-  		elementTypeUIA = "UIASlider";
+  		elementTypeUIA = "sliders";
   		break;	
   	case 'button':
-  		elementTypeUIA = "UIAButton";
+  		elementTypeUIA = "buttons";
   		break;	
   	case 'table view':
-  		elementTypeUIA = "UIATableView";
+  		elementTypeUIA = "tableViews";
   		break;	
   }
   
