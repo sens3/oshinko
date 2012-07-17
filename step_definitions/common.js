@@ -7,7 +7,9 @@ Oshinko.then( /I should see the "([^\"]+)" (switch|text field|slider|button|tabl
         element = Oshinko.findElement(elementTypeUIA, elementName);
     
     assertNotNull( element, "Could not find " + elementType + " (" + elementTypeUIA + ") named " + elementName );
-     
+    
+    Oshinko.target.delay( 0.5 );
+    
     assertTrue( element.isVisible(), elementType + " " + elementName + " should be visible" );       
 });
 
