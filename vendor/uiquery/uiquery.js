@@ -98,10 +98,7 @@ var UIQuery = {
     tableViews: UIATableView,
     staticTexts: UIAStaticText,
     sliders: UIASlider,
-<<<<<<< HEAD
     switches: UIASwitch,
-=======
->>>>>>> bbf1e78... Integrating UIQuery. Using it for global element lookup, instead of our previous experiment
     segmentedControls: UIASegmentedControl,
     textFields: UIATextField
   }
