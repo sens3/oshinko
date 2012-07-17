@@ -3,14 +3,14 @@
 # forked from https://github.com/jonathanpenn/AutomationExample
 
 # parse out project name from xcodebuild -list output
-APP_NAME=$(xcodebuild -list | grep -E "project \".+\":" | sed 's/\Information about project "\([^\"]*\)\":/\1/')
+APP_NAME=$(xcodebuild -list | grep -E "Information about" | sed 's/\Information about [^\"]* "\([^\"]*\)\":/\1/')
 
 # we assume your UIAutomation tests are in MyApp/UIAutomationTests
 TEST_DIR=$APP_NAME/UIAutomationTests
 OSHINKO_DIR=$TEST_DIR/js/oshinko
 
 # define and setup build directory
-BUILD_DIR=/tmp/$APP_NAME
+BUILD_DIR=/tmp/xcode-builds/$APP_NAME
 mkdir -p $BUILD_DIR
 
 # we will store the instruments output in automation_results/
