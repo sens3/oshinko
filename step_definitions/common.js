@@ -1,11 +1,12 @@
 
 Oshinko.then( /^I should see the "([^\"]+)" (switch|text field|slider|button|table view|label)$/ , function ( window, captures ) {
-    
+        Oshinko.target.delay( 0.5 );
+
     var elementName = captures[0],
         elementType = captures[1],
         elementTypeUIA = Oshinko._getUIAType( elementType ),
         element = UIQuery.firstKindWithName(elementTypeUIA, elementName);
-    
+
     assertNotNull( element, "Could not find " + elementType + " (" + elementTypeUIA + ") named " + elementName );
     
     Oshinko.target.delay( 0.5 );
@@ -24,8 +25,9 @@ Oshinko.when( /^I tap the "([^\"]+)" (switch|text field|slider|button|table view
 
     assertNotNull( element, "Could not find " + elementType + " (" + elementTypeUIA + ") named " + elementName );
 
-    element.vtap();
-    
+	element.tap();
+	
+	// Oshinko.target.delay(5);
 } );
 
 
