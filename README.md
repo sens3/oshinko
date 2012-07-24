@@ -73,6 +73,12 @@ Simply execute the included bash script:
 	
 	./MyApp/UIAutomationTests/js/oshinko/bin/run
 
+## .gitignore
+
+You might want to add these two to your *.gitignore*:
+
+	.oshinko
+	automation_results
 
 ## Notes ##
 Not all of Gherkin is yet implemented. What you *can* do is the basic Given/When/Then/And.
