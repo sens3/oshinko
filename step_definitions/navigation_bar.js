@@ -3,7 +3,8 @@ Oshinko.given(/^I tap the left navigation bar button$/, function(window, capture
     
     var navBar = window.navigationBar();
     navBar.leftButton().tap();
-    
+
+    Oshinko.target.delay( 0.5 );    
 });
 
 Oshinko.given(/^I tap the right navigation bar button$/, function(window, captures) {
@@ -11,6 +12,7 @@ Oshinko.given(/^I tap the right navigation bar button$/, function(window, captur
     var navBar = window.navigationBar();
     navBar.rightButton().tap();
     
+    Oshinko.target.delay( 0.5 );
 });
 
 Oshinko.then(/^I should see a navigation bar with title "([^\"]*)"$/, function(window, captures) {

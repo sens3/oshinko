@@ -13,7 +13,7 @@ Oshinko.then( /^I should see the "([^\"]+)" (switch|text field|slider|button|tab
     assertTrue( element.isVisible(), elementType + " " + elementName + " should be visible" );       
 });
 
-Oshinko.when( /^I tap the "([^\"]+)" (switch|text field|slider|button|table view|label)$/ , function (window, captures) {
+Oshinko.when( /^I tap the "([^\"]+)" (switch|text field|slider|button|table view|label)$/ , function ( window, captures ) {
 
     Oshinko.target.delay(1);
     
@@ -27,6 +27,14 @@ Oshinko.when( /^I tap the "([^\"]+)" (switch|text field|slider|button|table view
     element.vtap();
     
 } );
+
+Oshinko.when( /^I swipe up$/ , function( window, captures ) {
+  Oshinko.target.dragInsideWithOptions({startOffset:{x:0.5, y:0.8}, endOffset:{x:0.5, y:0.0}, duration:1.0});
+})
+
+Oshinko.then( /^I log the window view hierarchy$/ , function( window, captures ) {
+  window.logElementTree();
+});
 
 
 Oshinko._getUIAType = function ( elementType ){

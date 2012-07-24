@@ -1,4 +1,17 @@
 
+Oshinko.when(/^I tap the (\d+)(?:st|nd|rd|th) cell in the "([^\"]+)" table view$/, function(window, captures) {
+
+    Oshinko._assertOneTableView( window );
+
+    var tableView = UIQuery.firstKindWithName('tableViews', captures[1]);
+    var index = captures[0] - 1;
+    var cell = tableView.cells()[index];
+    
+    cell.vtap();
+    
+});
+
+
 Oshinko.when(/^I tap the (\d+)(?:st|nd|rd|th) table view cell$/, function(window, captures) {
 
     Oshinko._assertOneTableView( window );

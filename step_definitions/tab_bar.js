@@ -7,4 +7,11 @@ Oshinko.given(/^I (?:am on|go to) the "([^\"]*)" tab$/, function(window, capture
     
 });
 
+Oshinko.given(/^I should be on the "([^\"]*)" tab$/, function(window, captures) {
+
+    var tabBar = window.tabBar();
+    var tabName = captures[0];
+    assertEquals(tabBar.selectedButton().name(), tabName);
+    
+});
 
