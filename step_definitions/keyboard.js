@@ -10,6 +10,8 @@ Oshinko.when( /^I type "([^\"]+)"$/ , function (window, captures) {
         keyboard.typeString( strChar );
     }
        
-    keyboard.buttons().firstWithName( "search" ).tap();
+    var searchButton = keyboard.buttons().firstWithName( "search" );
+    if (searchButton.isValid())
+      searchButton.tap();
 
 } );
