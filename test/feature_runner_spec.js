@@ -74,12 +74,14 @@ describe( "Oshinko - Feature Runner", function () {
   
 
 	describe( "running the test feature", function() {
-
+    
 		beforeEach(function() {
 			Oshinko.stepDefinitions = [];
+			
 			Oshinko.given( /I write good code/, function(w, c) {} );
 			Oshinko.when( /I go to the "([^\"]+)"/, function(w, c) {} );
 			Oshinko.then( /I should only see green/, function(w, c) { throw "kazoom"; } );
+			
 			expect( Oshinko.stepDefinitions.length ).toEqual(3);
 			
 			spyOn(Oshinko.stepDefinitions[0], "callback").andCallThrough();
@@ -116,6 +118,22 @@ describe( "Oshinko - Feature Runner", function () {
 			expect( Oshinko.stepDefinitions[1].callback ).toHaveBeenCalledWith( Oshinko.application.mainWindow(), ["spec runner page"] );				
 			expect( Oshinko.stepDefinitions[2].callback ).toHaveBeenCalledWith( Oshinko.application.mainWindow(), [] );				
 		})
+		
+		it( "should end a failing feature", function() {
+		  expect( UIALogger.logFail ).toHaveBeenCalledWith( Oshinko.colorRed + 'Feature failed!' + Oshinko.colorReset );
+		});
+		
+		it( "should end a passing feature", function() {
+		  Oshinko.stepDefinitions.pop();
+		  expect( Oshinko.stepDefinitions.length ).toEqual(2);
+		  Oshinko.then( /I should only see green/, function(w, c) {} );
+		  expect( Oshinko.stepDefinitions.length ).toEqual(3);
+		  
+		  Oshinko.parseAndRunFeature( feature );
+		  
+		  expect( UIALogger.logPass ).toHaveBeenCalledWith( Oshinko.colorGreen + 'Feature passed!' + Oshinko.colorReset );
+		});
+		
 	});
 
 });
