@@ -50,6 +50,10 @@ Oshinko.when( /^I swipe right$/ , function( window, captures ) {
   Oshinko.target.delay( duration );
 })
 
+Oshinko.then( /^I wait a little$/ , function( window, captures) {
+  Oshinko.target.delay( 0.2 );
+});
+
 Oshinko.then( /^I log the window view hierarchy$/ , function( window, captures ) {
   window.logElementTree();
 });
