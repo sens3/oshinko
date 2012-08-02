@@ -2,6 +2,9 @@
 
 # forked from https://github.com/jonathanpenn/AutomationExample
 
+# NOTE:
+# You might need to edit this based on your directory and project structure!
+
 # parse out project name from xcodebuild -list output
 APP_NAME=$(xcodebuild -list | grep -E "Information about" | sed 's/\Information about [^\"]* "\([^\"]*\)\":/\1/')
 
@@ -21,36 +24,56 @@ mkdir -p automation_results
 mkdir -p .oshinko
 
 # build the project
-export UITEST=1
 xcodebuild -sdk iphonesimulator -configuration Debug build CONFIGURATION_BUILD_DIR=$BUILD_DIR
+
+#colors
+green="\033[33;32m"
+red="\033[33;31m"
+reset="\033[0m"
 
 # init return code
 return_code=0
+
+# init failed features buffer
+failed_features="Failed Features: \n"
+
 # run instruments with oshinko for every *.feature file
 for feature in $TEST_DIR/features/*.feature
 do
 	
-	# 'store' current feature file in .oshinko
+    # 'store' current feature file in .oshinko
 	#  makes passing it to JS easy
-	if [ -f .feature ]; then
-    rm .feature
-  fi
-  echo -n $feature > .oshinko/feature
+	if [ -f .oshinko/feature ]; then
+        rm .oshinko/feature
+    fi
+    echo -n $feature > .oshinko/feature
   
-  ./$OSHINKO_DIR/bin/unix_instruments \
-    -D automation_results/trace \
-    -t $OSHINKO_DIR/bin/UIAutomationTemplate.tracetemplate \
-    $BUILD_DIR/$APP_NAME.app \
-    -e UIARESULTSPATH automation_results \
-    -e UIASCRIPT $TEST_DIR/js/main.js \
+    ./$OSHINKO_DIR/bin/unix_instruments \
+        -D automation_results/trace \
+        -t $OSHINKO_DIR/bin/UIAutomationTemplate.tracetemplate \
+        $BUILD_DIR/$APP_NAME.app \
+        -e UIARESULTSPATH automation_results \
+        -e UIASCRIPT $TEST_DIR/js/main.js \
+        -e UITEST 1
 
-  if [[ $? == 0 ]]; then
-    echo "$feature passed!"
-  else
-    echo "$feature failed!"
-    return_code=1
-  fi
+    if [[ $? != 0 ]]; then
+        return_code=1
+        failed_features="$failed_features\n$feature"
+    fi
   
 done
 
+# print summary
+
+echo -e "\n\n"
+
+if [[ $return_code == 0 ]]; then
+  echo -e "${green}All features passed!$reset"
+else
+  echo -e "$red$failed_features$reset"
+fi
+
+echo -e "\n\n"
+
 exit $return_code
+
