@@ -57,6 +57,25 @@ Oshinko.when( /^I swipe (up|down|left|right)$/, function( window, captures) {
     
 });
 
+Oshinko.when( /^I swipe (up|down|left|right) a little (?:more)?$/, function( window, captures) {
+  
+    var direction = captures[0],
+        duration = 0.2,
+        directionOptions = {
+             'up':     { startOffset:{ x:0.5, y:0.8 }, endOffset:{ x:0.5, y:0.4 } },
+             'down':   { startOffset:{ x:0.5, y:0.2 }, endOffset:{ x:0.5, y:0.6 } },
+             'left':   { startOffset:{ x:0.1, y:0.5 }, endOffset:{ x:0.5, y:0.5 } },
+             'right':  { startOffset:{ x:0.9, y:0.5 }, endOffset:{ x:0.5, y:0.5 } }
+       };
+    
+    var options = directionOptions[direction];
+    options.duration = duration
+    
+    Oshinko.target.dragInsideWithOptions( options );
+    Oshinko.target.delay( duration );
+    
+});
+
 
 Oshinko.then( /^I wait a little$/ , function( window, captures) {
     Oshinko.target.delay( 0.2 );
