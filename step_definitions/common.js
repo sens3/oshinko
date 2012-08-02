@@ -38,49 +38,55 @@ Oshinko.when( /^I tap the "([^\"]+)" (switch|text field|slider|button|table view
     
 } );
 
-
-Oshinko.when( /^I swipe up$/ , function( window, captures ) {
-  var duration = 0.2;
-  Oshinko.target.dragInsideWithOptions({startOffset:{x:0.5, y:0.8}, endOffset:{x:0.5, y:0.0}, duration:duration});
-  Oshinko.target.delay( duration );
-});
-
-Oshinko.when( /^I swipe right$/ , function( window, captures ) {
-  var duration = 0.2;
-  Oshinko.target.dragInsideWithOptions({startOffset:{x:0.9, y:0.5}, endOffset:{x:0.0, y:0.5}, duration:duration});
-  Oshinko.target.delay( duration );
+Oshinko.when( /^I swipe (up|down|left|right)$/, function( window, captures) {
+  
+    var direction = captures[0],
+        duration = 0.2,
+        directionOptions = {
+             'up':     { startOffset:{ x:0.5, y:0.8 }, endOffset:{ x:0.5, y:0.0 } },
+             'down':   { startOffset:{ x:0.5, y:0.2 }, endOffset:{ x:0.5, y:1.0 } },
+             'left':   { startOffset:{ x:0.1, y:0.5 }, endOffset:{ x:1.0, y:0.5 } },
+             'right':  { startOffset:{ x:0.9, y:0.5 }, endOffset:{ x:0.0, y:0.5 } }
+       };
+    
+    var options = directionOptions[direction];
+    options.duration = duration
+    
+    Oshinko.target.dragInsideWithOptions( options );
+    Oshinko.target.delay( duration );
+    
 });
 
 
 Oshinko.then( /^I wait a little$/ , function( window, captures) {
-  Oshinko.target.delay( 0.2 );
+    Oshinko.target.delay( 0.2 );
 });
 
 Oshinko.then( /^I log the window view hierarchy$/ , function( window, captures ) {
-  window.logElementTree();
+    window.logElementTree();
 });
 
 
 Oshinko.then( /^I should see "([^\"]+)" in the "([^\"]+)" (text field|label|element)$/ , function (window, captures) {
   
-  var text = captures[0],
-      elementName = captures[1],
-      elementType = captures[2],
-      elementTypeUIA = Oshinko._getUIAType(elementType),
-      element;
-  
-  if (elementTypeUIA)    
-      element = UIQuery.firstKindWithName(elementTypeUIA, elementName);
+    var text = captures[0],
+        elementName = captures[1],
+        elementType = captures[2],
+        elementTypeUIA = Oshinko._getUIAType(elementType),
+        element;
+
+    if (elementTypeUIA)    
+        element = UIQuery.firstKindWithName(elementTypeUIA, elementName);
     else
-      element = UIQuery.firstWithName(elementName);
+        element = UIQuery.firstWithName(elementName);
 
-  assertNotNull( element, "Could not find " + elementType + " (" + elementTypeUIA + ") named " + elementName );
+    assertNotNull( element, "Could not find " + elementType + " (" + elementTypeUIA + ") named " + elementName );
 
-  UIALogger.logMessage(element.label());
-  UIALogger.logMessage(element.name());
-  UIALogger.logMessage(element.value());    
+    UIALogger.logMessage(element.label());
+    UIALogger.logMessage(element.name());
+    UIALogger.logMessage(element.value());    
 
-  assertEquals(text, element.value());
+    assertEquals(text, element.value());
   
 });
 
