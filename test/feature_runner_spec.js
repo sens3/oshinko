@@ -117,7 +117,15 @@ describe( "Oshinko - Feature Runner", function () {
 			expect( Oshinko.stepDefinitions[0].callback ).toHaveBeenCalledWith( Oshinko.application.mainWindow(), [] );	
 			expect( Oshinko.stepDefinitions[1].callback ).toHaveBeenCalledWith( Oshinko.application.mainWindow(), ["spec runner page"] );				
 			expect( Oshinko.stepDefinitions[2].callback ).toHaveBeenCalledWith( Oshinko.application.mainWindow(), [] );				
-		})
+		});
+		
+		it( "should execute the last step definition with a matching regex", function() {
+		    Oshinko.given( /I write good code/, function(w, c) {} );
+		    spyOn(Oshinko.stepDefinitions[3], "callback").andCallThrough();
+		    Oshinko.parseAndRunFeature( feature );
+
+		    expect( Oshinko.stepDefinitions[3].callback ).toHaveBeenCalledWith( Oshinko.application.mainWindow(), [] );	
+		});
 		
 		it( "should end a failing feature", function() {
 		  expect( UIALogger.logFail ).toHaveBeenCalledWith( Oshinko.colorRed + 'Feature failed!' + Oshinko.colorReset );
