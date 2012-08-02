@@ -71,6 +71,30 @@ Oshinko.then(/^I should see a table view with (\d+) groups?$/, function(window, 
     
 });
 
+Oshinko.then(/^I should see the "([^\"]+)" table view with (\d+) groups?$/, function(window, captures) {
+  
+    var name = captures[0],
+        length = captures[1];
+        
+    var tableView = UIQuery.firstKindWithName('tableViews', name);
+    var groups = tableView.groups();
+  
+    assertEquals(length, groups.length);    
+  
+});
+
+Oshinko.then(/^I should see "([^\"]+)" in the (\d+)(?:st|nd|rd|th) group of the "([^\"]+)" table view$/, function(window, captures) {
+
+    var text = captures[0],
+        index = captures[1] - 1,
+        name = captures[2];
+    
+    var tableView = UIQuery.firstKindWithName('tableViews', name);
+    var group = tableView.groups()[index];
+    
+    assertEquals(text, group.name());   
+});
+
 Oshinko._assertOneTableView = function( window ) {
   var tableViews = window.tableViews();
   var tableView = tableViews[0];

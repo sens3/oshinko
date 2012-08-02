@@ -1,5 +1,10 @@
+Oshinko.when(/^I tap the navigation bar$/, function(window, captures) {
+    var navBar = window.navigationBar();
+    
+    navBar.tap();
+});
 
-Oshinko.given(/^I tap the left navigation bar button$/, function(window, captures) {
+Oshinko.when(/^I tap the left navigation bar button$/, function(window, captures) {
     
     var navBar = window.navigationBar();
     navBar.leftButton().tap();
@@ -7,7 +12,7 @@ Oshinko.given(/^I tap the left navigation bar button$/, function(window, capture
     Oshinko.target.delay( 0.5 );    
 });
 
-Oshinko.given(/^I tap the right navigation bar button$/, function(window, captures) {
+Oshinko.when(/^I tap the right navigation bar button$/, function(window, captures) {
     
     var navBar = window.navigationBar();
     navBar.rightButton().tap();
