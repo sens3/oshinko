@@ -43,10 +43,10 @@ Oshinko.when( /^I swipe (up|down|left|right)$/, function( window, captures) {
     var direction = captures[0],
         duration = 0.2,
         directionOptions = {
-             'up':     { startOffset:{ x:0.5, y:0.8 }, endOffset:{ x:0.5, y:0.0 } },
+             'up':     { startOffset:{ x:0.5, y:0.8 }, endOffset:{ x:0.5, y:0.1 } },
              'down':   { startOffset:{ x:0.5, y:0.2 }, endOffset:{ x:0.5, y:1.0 } },
              'left':   { startOffset:{ x:0.1, y:0.5 }, endOffset:{ x:1.0, y:0.5 } },
-             'right':  { startOffset:{ x:0.9, y:0.5 }, endOffset:{ x:0.0, y:0.5 } }
+             'right':  { startOffset:{ x:0.9, y:0.5 }, endOffset:{ x:0.1, y:0.5 } }
        };
     
     var options = directionOptions[direction];
