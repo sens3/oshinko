@@ -78,7 +78,7 @@ Oshinko.when( /^I swipe (up|down|left|right) a little (?:more)?$/, function( win
 
 
 Oshinko.then( /^I wait a little$/ , function( window, captures) {
-    Oshinko.target.delay( 0.2 );
+    Oshinko.target.delay( 0.5 );
 });
 
 Oshinko.then( /^I log the window view hierarchy$/ , function( window, captures ) {
