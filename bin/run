@@ -37,10 +37,8 @@ return_code=0
 # init failed features buffer
 failed_features="Failed Features: \n"
 
-# run instruments with oshinko for every *.feature file
-for feature in $TEST_DIR/features/*.feature
-do
-	
+function run_feature {
+    
     # 'store' current feature file in .oshinko
 	#  makes passing it to JS easy
 	if [ -f .oshinko/feature ]; then
@@ -60,8 +58,24 @@ do
         return_code=1
         failed_features="$failed_features\n$feature"
     fi
-  
-done
+}
+
+# read feature name from args
+feature=$1
+
+if [ $feature ]; then
+    
+    run_feature
+    
+else
+    
+    # run instruments with oshinko for every *.feature file
+    for feature in $TEST_DIR/features/*.feature
+    do
+    	run_feature
+    done
+    
+fi
 
 # print summary
 
