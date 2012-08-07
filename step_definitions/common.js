@@ -101,10 +101,6 @@ Oshinko.then( /^I should see "([^\"]+)" in the "([^\"]+)" (text field|label|elem
 
     assertNotNull( element, "Could not find " + elementType + " (" + elementTypeUIA + ") named " + elementName );
 
-    UIALogger.logMessage(element.label());
-    UIALogger.logMessage(element.name());
-    UIALogger.logMessage(element.value());    
-
     assertEquals(text, element.value());
   
 });
