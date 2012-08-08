@@ -100,7 +100,8 @@ var UIQuery = {
     sliders: UIASlider,
     switches: UIASwitch,
     segmentedControls: UIASegmentedControl,
-    textFields: UIATextField
+    textFields: UIATextField,
+    textViews: UIATextView
   }
 
 };
