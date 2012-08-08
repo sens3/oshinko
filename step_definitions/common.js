@@ -1,5 +1,5 @@
 
-Oshinko.then( /^I should (not )?see the "([^\"]+)" (switch|text field|slider|button|table view|label)$/ , function ( window, captures ) {
+Oshinko.then( /^I should (not )?see the "([^\"]+)" (switch|text field|text view|slider|button|table view|label)$/ , function ( window, captures ) {
     
     var not         = (captures[0] !== undefined),
         elementName = captures[1],
@@ -23,7 +23,7 @@ Oshinko.then( /^I should (not )?see the "([^\"]+)" (switch|text field|slider|but
     }
 });
 
-Oshinko.when( /^I tap the "([^\"]+)" (switch|text field|slider|button|table view|label)$/ , function ( window, captures ) {
+Oshinko.when( /^I tap the "([^\"]+)" (switch|text field|text view|slider|button|table view|label)$/ , function ( window, captures ) {
 
     Oshinko.target.delay( 0.5 );
     
@@ -86,7 +86,7 @@ Oshinko.then( /^I log the window view hierarchy$/ , function( window, captures )
 });
 
 
-Oshinko.then( /^I should see "([^\"]+)" in the "([^\"]+)" (text field|label|element)$/ , function (window, captures) {
+Oshinko.then( /^I should see "([^\"]*)" in the "([^\"]+)" (text field|text view|label|element)$/ , function (window, captures) {
   
     var text = captures[0],
         elementName = captures[1],
@@ -118,7 +118,10 @@ Oshinko._getUIAType = function ( elementType ){
   		break;
   	case 'text field':
   		elementTypeUIA = "textFields"
-  		break;	
+  		break;
+	case 'text view':
+		elementTypeUIA = "textViews"
+		break;  			
   	case 'slider':
   		elementTypeUIA = "sliders";
   		break;	
