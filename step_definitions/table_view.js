@@ -35,7 +35,7 @@ Oshinko.when(/^I tap the table view cell with title "([^\"]+)"$/, function(windo
 });
 
 
-Oshinko.then(/^I should see a table view with (\d+) cells$/, function(window, captures) {
+Oshinko.then(/^I should see a table view with (\d+) cells?$/, function(window, captures) {
 
     Oshinko._assertOneTableView( window );
     
@@ -47,7 +47,7 @@ Oshinko.then(/^I should see a table view with (\d+) cells$/, function(window, ca
     
 });
 
-Oshinko.then(/^I should see a table view with (\d+) visible cells$/, function(window, captures) {
+Oshinko.then(/^I should see a table view with (\d+) visible cells?$/, function(window, captures) {
     
     Oshinko._assertOneTableView( window );
     
@@ -80,6 +80,18 @@ Oshinko.then(/^I should see the "([^\"]+)" table view with (\d+) groups?$/, func
     var groups = tableView.groups();
   
     assertEquals(length, groups.length);    
+  
+});
+
+Oshinko.then(/^I should see the "([^\"]+)" table view with (\d+) cells?$/, function(window, captures) {
+  
+    var name = captures[0],
+        length = captures[1];
+        
+    var tableView = UIQuery.firstKindWithName('tableViews', name);
+    var cells = tableView.cells();
+  
+    assertEquals(length, cells.length);    
   
 });
 

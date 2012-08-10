@@ -81,6 +81,11 @@ Oshinko.then( /^I wait a little$/ , function( window, captures) {
     Oshinko.target.delay( 0.5 );
 });
 
+Oshinko.then( /^I wait (\d+) seconds$/ , function( window, captures) {
+    var time = captures[0];
+    Oshinko.target.delay( time );
+});
+
 Oshinko.then( /^I log the window view hierarchy$/ , function( window, captures ) {
     window.logElementTree();
 });
