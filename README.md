@@ -73,6 +73,8 @@ Simply execute the included bash script:
 	
 	./MyApp/UIAutomationTests/js/oshinko/bin/run
 
+You might have to edit this, based on your workspace/project structure.
+
 ## .gitignore
 
 You might want to add these two to your *.gitignore*:
