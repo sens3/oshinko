@@ -41,7 +41,7 @@ Oshinko.when( /^I tap the "([^\"]+)" (switch|text field|text view|slider|button|
 Oshinko.when( /^I swipe (up|down|left|right)$/, function( window, captures) {
   
     var direction = captures[0],
-        duration = 0.2,
+        duration = 0.5,
         directionOptions = {
              'up':     { startOffset:{ x:0.5, y:0.8 }, endOffset:{ x:0.5, y:0.1 } },
              'down':   { startOffset:{ x:0.5, y:0.2 }, endOffset:{ x:0.5, y:1.0 } },
@@ -51,7 +51,7 @@ Oshinko.when( /^I swipe (up|down|left|right)$/, function( window, captures) {
     
     var options = directionOptions[direction];
     options.duration = duration
-    
+ 
     Oshinko.target.dragInsideWithOptions( options );
     Oshinko.target.delay( duration );
     
