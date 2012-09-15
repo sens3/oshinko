@@ -49,10 +49,8 @@ run_instruments() {
   output=$(mktemp -t unix-instruments)
   instruments $@ &> /dev/ttyvf & pid_instruments=$!
 
-  # Cat the instruments output to tee which outputs to stdout and saves to
-  # $output at the same time
-  cat < /dev/ptyvf | tee $output
-
+  # send output to filter function and save to $output
+  filterOutput < /dev/ptyvf | tee $output
   # Clear the process id we saved when forking instruments so the cleanup
   # function called on exit knows it doesn't have to kill anything
   pid_instruments=0
@@ -60,6 +58,13 @@ run_instruments() {
   # Process the instruments output looking for anything that resembles a fail
   # message
   cat $output | get_error_status
+}
+
+# remove all output noise
+# removes lines that have "DTXMessage" or "Debug:" in them
+# regex might be too vague under certain circumstances
+filterOutput() {
+    ruby -e 'STDIN.each_line { |line|  print line unless line =~ /DTXMessage|Debug:/; STDOUT.flush };'
 }
 
 get_error_status() {
