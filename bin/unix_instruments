@@ -46,7 +46,7 @@ run_instruments() {
   # I don't like this because I'm hard coding a tty/pty pair in here. Suggestions
   # to make this cleaner?
 
-  output=$(mktemp -t unix-instruments)
+  output=$(mktemp -t unix-instruments.XXXXXXXX)
   instruments $@ &> /dev/ttyvf & pid_instruments=$!
 
   # Cat the instruments output to tee which outputs to stdout and saves to
