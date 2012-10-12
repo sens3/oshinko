@@ -26,6 +26,10 @@ mkdir -p .oshinko
 # build the project
 xcodebuild -sdk iphonesimulator -configuration Debug build CONFIGURATION_BUILD_DIR=$BUILD_DIR
 
+if [[ $? != 0 ]]; then
+    exit $?
+fi
+
 #colors
 green="\033[33;32m"
 red="\033[33;31m"
