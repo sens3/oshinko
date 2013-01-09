@@ -134,10 +134,13 @@ describe( "Oshinko - Feature Runner", function () {
 		it( "should end a passing feature", function() {
 		  Oshinko.stepDefinitions.pop();
 		  expect( Oshinko.stepDefinitions.length ).toEqual(2);
-		  Oshinko.then( /I should only see green/, function(w, c) {} );
-		  expect( Oshinko.stepDefinitions.length ).toEqual(3);
+			Oshinko.then( /I should only see green/, function(w, c) {} );
+		  Oshinko.then( /I should get high fives/, function(w, c) {} );
+		  expect( Oshinko.stepDefinitions.length ).toEqual(4);
 		  
 		  Oshinko.parseAndRunFeature( feature );
+		
+			expect( Oshinko.featureFailed ).toBeFalsy();
 		  
 		  expect( UIALogger.logPass ).toHaveBeenCalledWith( Oshinko.colorGreen + 'Feature passed!' + Oshinko.colorReset );
 		});
