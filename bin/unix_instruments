@@ -45,9 +45,23 @@ run_instruments() {
   #
   # I don't like this because I'm hard coding a tty/pty pair in here. Suggestions
   # to make this cleaner?
-
-  output=$(mktemp -t unix-instruments.XXXXXXXX)
-  instruments $@ &> /dev/ttyvf & pid_instruments=$!
+  
+	i=0
+	argv=()
+	lastarg=""
+	for arg in "$@"; do
+	    argv[$i]="$lastarg$arg"
+	    if [[ $arg != *\\ ]]
+	    then
+	      i=$((i + 1))
+	      lastarg=""
+	    else
+	      lastarg="${arg%?} "
+	    fi
+	done
+	
+	output=$(mktemp -t unix-instruments.XXXXXXXX)
+	instruments "${argv[@]}" &> /dev/ttyvf & pid_instruments=$!
 
   # send output to filter function and save to $output
   filterOutput < /dev/ptyvf | tee $output
@@ -92,5 +106,5 @@ function cleanup_instruments() {
 if [[ $1 == "----test" ]]; then
   get_error_status
 else
-  run_instruments $@
+  run_instruments "$@"
 fi
