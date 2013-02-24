@@ -9,15 +9,15 @@
 APP_NAME=$(xcodebuild -list | grep -E "Information about" | sed 's/\Information about [^\"]* "\([^\"]*\)\":/\1/')
 
 # escape spaces
-APP_NAME_ESCAPED=$(echo "$APP_NAME" | sed s/\ /\\\\\ /)
+APP_NAME_ESCAPED=$(echo "$APP_NAME" | sed s/\ /\\\\\ /g)
 
 # convert spaces
-APP_NAME_UNDERSCORED=$(echo "$APP_NAME" | sed s/\ /_/)
+APP_NAME_UNDERSCORED=$(echo "$APP_NAME" | sed s/\ /_/g)
 
 # find the directory the test are located in
 DIR="$( cd "$( dirname "$0" )" && pwd )"
 TEST_DIR=$(echo "$DIR" | sed s/\\\/js\\\/oshinko\\\/bin//)
-TEST_DIR_ESCAPED=$(echo $TEST_DIR | sed s/\ /\\\\\ /)
+TEST_DIR_ESCAPED=$(echo $TEST_DIR | sed s/\ /\\\\\ /g)
 OSHINKO_DIR=$TEST_DIR/js/oshinko
 OSHINKO_DIR_ESCAPED=$TEST_DIR_ESCAPED/js/oshinko
 
