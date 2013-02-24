@@ -50,13 +50,14 @@ run_instruments() {
 	argv=()
 	lastarg=""
 	for arg in "$@"; do
-	    argv[$i]="$lastarg$arg"
+			combinedarg="$lastarg$arg"
+	    argv[$i]=$combinedarg
 	    if [[ $arg != *\\ ]]
 	    then
 	      i=$((i + 1))
 	      lastarg=""
 	    else
-	      lastarg="${arg%?} "
+	      lastarg="${combinedarg%?} "
 	    fi
 	done
 	
