@@ -18,7 +18,6 @@ APP_NAME_UNDERSCORED=$(echo "$APP_NAME" | sed s/\ /_/)
 DIR="$( cd "$( dirname "$0" )" && pwd )"
 TEST_DIR=$(echo "$DIR" | sed s/\\\/js\\\/oshinko\\\/bin//)
 TEST_DIR_ESCAPED=$(echo $TEST_DIR | sed s/\ /\\\\\ /)
-TEST_DIR_TWICE_ESCAPED=$(echo $TEST_DIR_ESCAPED | sed s/\ /\\\\\ /)
 OSHINKO_DIR=$TEST_DIR/js/oshinko
 OSHINKO_DIR_ESCAPED=$TEST_DIR_ESCAPED/js/oshinko
 
@@ -65,7 +64,7 @@ function run_feature {
   
     "$OSHINKO_DIR"/bin/unix_instruments \
         -D automation_results/trace \
-        -t $BUILD_DIR/UIAutomationTemplate.tracetemplate \
+        -t $OSHINKO_DIR_ESCAPED/bin/UIAutomationTemplate.tracetemplate \
         $BUILD_DIR/$APP_NAME_ESCAPED.app \
         -e UIARESULTSPATH automation_results \
         -e UIASCRIPT $TEST_DIR_ESCAPED/js/main.js \
@@ -78,9 +77,6 @@ function run_feature {
 }
 
 function run_all_features {
-    # copy the tracetemplate to the BUILD_DIR. instruments will not find it if the path contains spaces. No matter how often you quote or escape
-    cp "$OSHINKO_DIR/bin/UIAutomationTemplate.tracetemplate" $BUILD_DIR/UIAutomationTemplate.tracetemplate
-    #cd "$TEST_DIR"
     # run instruments with oshinko for every *.feature file
 
     find "$TEST_DIR/features" -iname '*.feature' -print0 | while read -d $'\0' -r feature ; do
