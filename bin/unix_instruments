@@ -38,6 +38,33 @@
 set -e  # Bomb on any script errors
 
 run_instruments() {
+	
+	# Cleanup the argument list to allow whitespaces in paths
+	# If we dont do this the arguments will be interpreted as splitted by spaces
+	# no matter if the arguments are escaped by \ or qouted by ""
+	# If we have a path like /path/to some/thing we would escape the space to give it
+	# to this script like /path/to\ some/thing. But instruments would see '/path/to\'
+	# and 'some/thing' as two arguments. I can't see why bash is working that way, but it is.
+	# What we are doing here ist iterating all arguments and create a new array of them.
+	# If any argument ends with \ then we store it's value in $lastarg after removing the \ and
+	# adding space. We repeat that until we find an argument that does no end in \ and then we
+	# add the whole string into the array to pass to instruments.
+
+	i=0
+	argv=()
+	lastarg=""
+	for arg in "$@"; do
+			combinedarg="$lastarg$arg"
+	    argv[$i]=$combinedarg
+	    if [[ $arg != *\\ ]]
+	    then
+	      i=$((i + 1))
+	      lastarg=""
+	    else
+	      lastarg="${combinedarg%?} "
+	    fi
+	done
+	
   # Because instruments buffers it's output if it determines that it is being
   # piped to another process, we have to use ptys to get around that so that we
   # can use `tee` to save the output for grepping and print to stdout in real
@@ -45,9 +72,9 @@ run_instruments() {
   #
   # I don't like this because I'm hard coding a tty/pty pair in here. Suggestions
   # to make this cleaner?
-
-  output=$(mktemp -t unix-instruments.XXXXXXXX)
-  instruments $@ &> /dev/ttyvf & pid_instruments=$!
+	
+	output=$(mktemp -t unix-instruments.XXXXXXXX)
+	instruments "${argv[@]}" &> /dev/ttyvf & pid_instruments=$!
 
   # send output to filter function and save to $output
   filterOutput < /dev/ptyvf | tee $output
@@ -92,5 +119,5 @@ function cleanup_instruments() {
 if [[ $1 == "----test" ]]; then
   get_error_status
 else
-  run_instruments $@
+  run_instruments "$@"
 fi

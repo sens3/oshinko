@@ -8,12 +8,24 @@
 # parse out project name from xcodebuild -list output
 APP_NAME=$(xcodebuild -list | grep -E "Information about" | sed 's/\Information about [^\"]* "\([^\"]*\)\":/\1/')
 
-# we assume your UIAutomation tests are in MyApp/UIAutomationTests
-TEST_DIR=$APP_NAME/UIAutomationTests
+# escape spaces
+APP_NAME_ESCAPED=$(echo "$APP_NAME" | sed s/\ /\\\\\ /g)
+
+# convert spaces
+APP_NAME_UNDERSCORED=$(echo "$APP_NAME" | sed s/\ /_/g)
+
+# find the directory the test are located in
+DIR="$( cd "$( dirname "$0" )" && pwd )"
+TEST_DIR=$(echo "$DIR" | sed s/\\\/js\\\/oshinko\\\/bin//)
+TEST_DIR_ESCAPED=$(echo $TEST_DIR | sed s/\ /\\\\\ /g)
 OSHINKO_DIR=$TEST_DIR/js/oshinko
+OSHINKO_DIR_ESCAPED=$TEST_DIR_ESCAPED/js/oshinko
+
+echo "Found Test Dir $TEST_DIR"
+echo "Found oshinko in $OSHINKO_DIR_ESCAPED"
 
 # define and setup build directory
-BUILD_DIR=/tmp/xcode-builds/$APP_NAME
+BUILD_DIR=/tmp/xcode-builds/$APP_NAME_UNDERSCORED
 mkdir -p $BUILD_DIR
 
 # we will store the instruments output in automation_results/
@@ -24,7 +36,7 @@ mkdir -p automation_results
 mkdir -p .oshinko
 
 # build the project
-xcodebuild -sdk iphonesimulator -configuration Debug build CONFIGURATION_BUILD_DIR=$BUILD_DIR
+xcodebuild -sdk iphonesimulator -configuration Debug build CONFIGURATION_BUILD_DIR="$BUILD_DIR"
 
 if [[ $? != 0 ]]; then
     exit $?
@@ -50,12 +62,12 @@ function run_feature {
     fi
     echo -n $feature > .oshinko/feature
   
-    ./$OSHINKO_DIR/bin/unix_instruments \
+    "$OSHINKO_DIR"/bin/unix_instruments \
         -D automation_results/trace \
-        -t $OSHINKO_DIR/bin/UIAutomationTemplate.tracetemplate \
-        $BUILD_DIR/$APP_NAME.app \
+        -t $OSHINKO_DIR_ESCAPED/bin/UIAutomationTemplate.tracetemplate \
+        $BUILD_DIR/$APP_NAME_ESCAPED.app \
         -e UIARESULTSPATH automation_results \
-        -e UIASCRIPT $TEST_DIR/js/main.js \
+        -e UIASCRIPT $TEST_DIR_ESCAPED/js/main.js \
         -e UITEST 1
 
     if [[ $? != 0 ]]; then
@@ -66,9 +78,9 @@ function run_feature {
 
 function run_all_features {
     # run instruments with oshinko for every *.feature file
-    for feature in $TEST_DIR/features/*.feature
-    do
-    	run_feature
+
+    find "$TEST_DIR/features" -iname '*.feature' -print0 | while read -d $'\0' -r feature ; do
+        run_feature
     done
 }
 
